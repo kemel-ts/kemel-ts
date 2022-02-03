@@ -1,0 +1,18 @@
+export enum Operator {    
+    Equal = '=',
+    Different = '<>',
+    GreaterThan = '>',
+    LessThan = '<',
+    GreaterThanOrEqual = '>=',
+    LessThanOrEqual = '<=',
+    Between = 'BETWEEN',
+    Like = 'LIKE',
+    NotLike = 'NOT LIKE',
+    In = 'IN',
+    NotIn = 'NOT IN',
+    IsNull = 'IS NULL',
+    IsNotNull = 'IS NOT NULL',
+    StartsWith = `LIKE '{0}%'`,
+    EndsWith = `LIKE '%{0}'`,
+    Contains = `LIKE '%{0}%'`,
+};
