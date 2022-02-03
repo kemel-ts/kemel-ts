@@ -1,16 +1,16 @@
 import { ConstraintValue } from "..";
 import { Raw } from "../../raw";
-import { Writer } from "../../writer/writer";
+import { Writer } from "../../writer";
 
 export class RawValue implements ConstraintValue {
-    value: Raw;
-    
-    constructor(value: Raw) {
-        this.value = value;
-    }
-    
-    write(writer: Writer) {
-        writer.writeWithEndSpace(this.value.value.toString());
-    }
+  value: Raw;
+
+  constructor(value: Raw) {
+    this.value = value;
+  }
+
+  write(writer: Writer) {
+    writer.writeWithBeginSpace(this.value.value.toString());
+  }
 
 }

@@ -1,18 +1,17 @@
 import { ConstraintValue } from "..";
-import { Query } from "../../query";
-import { Punctuation } from "../../writer/punctuation";
-import { Writer } from "../../writer/writer";
+import { Punctuation, Query } from "../..";
+import { Writer } from "../../writer";
 
 export class SubConstraint implements ConstraintValue {
-    value: Query;
-    
-    constructor(value: Query) {
-        this.value = value;
-    }
-    
-    write(writer: Writer) {
-        writer.write(Punctuation.OpenParenthesis);
-        this.value.writeConstraints(writer);
-        writer.writeWithEndSpace(Punctuation.CloseParenthesis);
-    }
+  value: Query;
+
+  constructor(value: Query) {
+    this.value = value;
+  }
+
+  write(writer: Writer) {
+    writer.writeWithBeginSpace(Punctuation.OpenParenthesis);
+    this.value.writeConstraints(writer);
+    writer.write(Punctuation.CloseParenthesis);
+  }
 }

@@ -1,9 +1,9 @@
 export class Parameter {
-    name: string;
-    value: object;
+  name: string;
+  value: object;
 
-    constructor(name: string, value: object) {
-        this.name = name;
-        this.value = value;
-    }
+  constructor(name: string, value: object) {
+    this.name = name;
+    this.value = value;
+  }
 }

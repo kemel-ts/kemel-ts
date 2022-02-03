@@ -1,46 +1,45 @@
 import { Constraint } from "./constraint";
-import { Raw } from "./raw";
-import { Writer } from "./writer/writer";
+import { Writer } from "./writer";
 
 export class Query {
 
-    constraints: Constraint[] = [];
+  constraints: Constraint[] = [];
 
-    private addConstraint(constraint: Constraint) {
-        this.constraints.push(constraint);
-        return constraint;
-    }
+  private addConstraint(constraint: Constraint) {
+    this.constraints.push(constraint);
+    return constraint;
+  }
 
-    whereObject(value: object): Query {
-        Object.keys(value)
-            .forEach((key) => {
-                const propValue = value[key];
-                Array.isArray(propValue) ?
-                    this.and(key).in(...propValue) :
-                    this.and(key).equal(propValue);
-            })
-        return this;
-    }
+  whereObject(value: object): Query {
+    Object.keys(value)
+      .forEach((key) => {
+        const propValue = value[key];
+        Array.isArray(propValue) ?
+          this.and(key).in(...propValue) :
+          this.and(key).equal(propValue);
+      })
+    return this;
+  }
 
-    where(value: any): Constraint {
-        return this.addConstraint(Constraint.and(this, value));
-    }
+  where(value: any): Constraint {
+    return this.addConstraint(Constraint.and(this, value));
+  }
 
-    and(value: any): Constraint {
-        return this.addConstraint(Constraint.and(this, value));
-    }
+  and(value: any): Constraint {
+    return this.addConstraint(Constraint.and(this, value));
+  }
 
-    or(value: any): Constraint {
-        return this.addConstraint(Constraint.or(this, value));
-    }
-    
-    write(writer: Writer) {
-        writer.writeWithEndSpace('---');
-        this.writeConstraints(writer);
-        writer.write('---');
-    }
-    
-    writeConstraints(writer: Writer) {
-        this.constraints.forEach((constraint, index) => constraint.write(writer, index !== 0));
-    }
+  or(value: any): Constraint {
+    return this.addConstraint(Constraint.or(this, value));
+  }
+
+  write(writer: Writer) {
+    writer.write('---');
+    this.writeConstraints(writer);
+    writer.write('---');
+  }
+
+  writeConstraints(writer: Writer) {
+    this.constraints.forEach((constraint, index) => constraint.write(writer, index !== 0));
+  }
 }

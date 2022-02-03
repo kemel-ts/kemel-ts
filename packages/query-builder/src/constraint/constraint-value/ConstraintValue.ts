@@ -1,5 +1,5 @@
-import { Writer } from "../../writer/writer";
+import { Writer } from "../../writer";
 
 export interface ConstraintValue {
-    write(writer: Writer);
+  write(writer: Writer);
 }

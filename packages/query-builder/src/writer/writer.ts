@@ -1,26 +1,34 @@
-import { Parameter } from "./parameter";
+import { Parameter } from ".";
+import { Punctuation } from "..";
 
 export class Writer {
-    parameters: Parameter[] = [];
-    sqlParts: string[] = [];
+  parameters: Parameter[] = [];
+  sqlParts: string[] = [];
 
-    writeWithEndSpace(sqlPart: string, parameters: Parameter[] = []) {
-        this.sqlParts.push(sqlPart + ' ');
-        this.parameters = [...this.parameters, ...parameters];
-    }
+  write(sqlPart: string, parameters: Parameter[] = []) {
+    this.sqlParts.push(sqlPart);
+    this.parameters = [...this.parameters, ...parameters];
+  }
 
-    write(sqlPart: string, parameters: Parameter[] = []) {
-        this.sqlParts.push(sqlPart);
-        this.parameters = [...this.parameters, ...parameters];
-    }
+  writeSpace() {
+    this.sqlParts.push(Punctuation.Space);
+  }
 
-    render() {
-        return this.sqlParts.join('');
-    }
+  writeWithEndSpace(sqlPart: string, parameters: Parameter[] = []) {
+    this.write(sqlPart, parameters);
+    this.writeSpace();
+  }
 
-    nextParameterName() {        
-        return '$';
-    }
+  writeWithBeginSpace(sqlPart: string, parameters: Parameter[] = []) {
+    this.writeSpace();
+    this.write(sqlPart, parameters);
+  }
 
-    
+  render() {
+    return this.sqlParts.join('');
+  }
+
+  nextParameterName() {
+    return '$';
+  }
 }
